@@ -28,6 +28,8 @@ public class CustomerResouce {
         }
     }
 
+    @CrossOrigin
+    @PostMapping
     public @ResponseBody ResponseEntity<?> createCustomer(@RequestBody CustomerDto customerDto){
         try {
             this.costumerService.createCustomer(customerDto);
