@@ -9,19 +9,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 @Service
 public class CostumerService {
 
 	@Autowired
 	private CustomerRepository customerRepository;
+	@Autowired
+    private FileStorageService fileStorageService;
 
 	/**
 	 * Busca todas as {@link Customer}
 	 * @return {@link Iterable}
 	 */
-	public Iterable<Customer>searchAllProposals(){
+	public Iterable<Customer> searchAllCustumers(){
 		return this.customerRepository.findAll();
 	}
 
@@ -41,6 +42,8 @@ public class CostumerService {
 		customer.setGener(customerDto.getGener().charAt(0));
 
 		this.customerRepository.save(customer);
+		this.fileStorageService.storeFile(customerDto.getImage());
+
 
 		return customer;
 	}

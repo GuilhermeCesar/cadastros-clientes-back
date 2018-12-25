@@ -11,6 +11,7 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	private String image;
 	private String fullName;
 	private String socialId;
 	private Integer age;
@@ -18,6 +19,7 @@ public class Customer {
 	private String state;
 	private Integer dependents;
 	private BigDecimal salary;
+	private String telephone;
 
 	@Enumerated(EnumType.ORDINAL)
 	private CivilStatus civilStatus;
@@ -100,5 +102,21 @@ public class Customer {
 
 	public void setCivilStatus(CivilStatus civilStatus) {
 		this.civilStatus = civilStatus;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 }

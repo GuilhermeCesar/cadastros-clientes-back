@@ -1,5 +1,7 @@
 package com.essencia.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.Serializable;
 
 public class CustomerDto implements Serializable {
@@ -12,6 +14,17 @@ public class CustomerDto implements Serializable {
     private String state;
     private Integer dependents;
     private String salary;
+    private MultipartFile image;
+
+    public CustomerDto(String fullName, String socialId, Integer age, String gener) {
+        this.fullName = fullName;
+        this.socialId = socialId;
+        this.age = age;
+        this.gener = gener;
+    }
+
+    public CustomerDto() {
+    }
 
     public String getFullName() {
         return fullName;
@@ -75,6 +88,14 @@ public class CustomerDto implements Serializable {
 
     public void setGener(String gener) {
         this.gener = gener;
+    }
+
+    public MultipartFile getImage() {
+        return image;
+    }
+
+    public void setImage(MultipartFile image) {
+        this.image = image;
     }
 
     @Override
