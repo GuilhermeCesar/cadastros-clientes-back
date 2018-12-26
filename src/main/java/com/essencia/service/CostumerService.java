@@ -7,8 +7,10 @@ import com.essencia.model.Customer;
 import com.essencia.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @Service
 public class CostumerService {
@@ -34,6 +36,9 @@ public class CostumerService {
 	 */
    	public Customer createCustomer(CustomerDto customerDto){
 		Customer customer = new Customer(customerDto.getFullName(), customerDto.getSocialId());
+		Optional<MultipartFile> multipartFileOptional = Optional.ofNullable(customerDto.getImage());
+		String image = null;
+
 		customer.setAge(customerDto.getAge());
 		customer.setCivilStatus(CivilStatus.valueOf(customerDto.getCivilStatus().toUpperCase()));
 		customer.setDependents(customerDto.getDependents());
@@ -41,9 +46,12 @@ public class CostumerService {
 		customer.setSalary(new BigDecimal(customerDto.getSalary()));
 		customer.setGener(customerDto.getGener().charAt(0));
 
-		this.customerRepository.save(customer);
-		this.fileStorageService.storeFile(customerDto.getImage());
+		if(multipartFileOptional.isPresent()){
+			image = this.fileStorageService.storeFile(multipartFileOptional.get());
+		}
 
+		customer.setImage(image);
+		this.customerRepository.save(customer);
 
 		return customer;
 	}

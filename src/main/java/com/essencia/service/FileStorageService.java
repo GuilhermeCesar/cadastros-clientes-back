@@ -3,10 +3,10 @@ package com.essencia.service;
 import com.essencia.config.FileStatorageConfig;
 import com.essencia.exception.FileStorageException;
 import com.essencia.exception.MyFileNotFoundException;
+import com.essencia.utils.HashUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -34,10 +34,9 @@ public class FileStorageService {
     }
 
     public String storeFile(MultipartFile file){
-        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        String filename = HashUtils.getFilehashSha1(file.getOriginalFilename());
 
         try {
-
             if(filename.contains("..")){
                 throw new FileStorageException("Desculpe! O nome do arquivo contem caracteres inválidos ".concat(filename));
             }
