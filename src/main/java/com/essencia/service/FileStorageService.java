@@ -58,11 +58,11 @@ public class FileStorageService {
         try{
             Resource resource = new UrlResource(filePath.toUri());
 
-            if(resource.exists()) {
-                return resource;
+            if(!resource.exists()) {
+                throw new MyFileNotFoundException("Arquivo não existe ".concat(fileName));
             }
 
-            throw new MyFileNotFoundException("Arquivo não existe ".concat(fileName));
+            return resource;
         }catch (MalformedURLException ex){
             throw new MyFileNotFoundException("Arquivo não existe ".concat(fileName),ex);
         }

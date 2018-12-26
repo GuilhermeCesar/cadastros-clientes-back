@@ -5,12 +5,18 @@ import com.essencia.dto.CustomerDto;
 import com.essencia.model.Customer;
 import com.essencia.service.CostumerService;
 import com.essencia.service.FileStorageService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.condition.ProducesRequestCondition;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 @RestController
 @CrossOrigin
@@ -44,7 +50,6 @@ public class CustomerResouce {
                                                           @RequestParam(name = "state") String state,
                                                           @RequestParam(name = "salary") String salary){
         try {
-
             CustomerDto customerDto = new CustomerDto(fullName, socialId, age, gener);
             customerDto.setCivilStatus(civilStatus);
             customerDto.setDependents(dependents);
@@ -58,5 +63,31 @@ public class CustomerResouce {
         }catch (Exception ex){
             return new ResponseEntity<>("Erro no servidor", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+
+    @GetMapping("/image/{filename:.+}")
+    public ResponseEntity<Resource> downloadImage(@PathVariable String filename, HttpServletRequest request){
+        Resource resource = this.fileStorageService.loadFileAsResouce(filename);
+
+        String contentType = null;
+
+        try {
+            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        }catch (IOException ex){
+            System.out.println(ex.getMessage());
+        }
+
+        if(StringUtils.isBlank(contentType)){
+            contentType = MediaType.IMAGE_JPEG_VALUE;
+        }
+
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "filename\"".concat(resource.getFilename()).concat("\""))
+                .body(resource);
+
     }
 }
