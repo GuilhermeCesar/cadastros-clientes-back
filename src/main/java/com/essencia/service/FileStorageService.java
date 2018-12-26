@@ -4,6 +4,7 @@ import com.essencia.config.FileStatorageConfig;
 import com.essencia.exception.FileStorageException;
 import com.essencia.exception.MyFileNotFoundException;
 import com.essencia.utils.HashUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ public class FileStorageService {
 
     private final Path fileStorageLocalition;
 
+    @Autowired
     public FileStorageService(FileStatorageConfig fileStatorageConfig){
         this.fileStorageLocalition = Paths
                                 .get(fileStatorageConfig.getUploadDir())
@@ -67,5 +69,4 @@ public class FileStorageService {
             throw new MyFileNotFoundException("Arquivo não existe ".concat(fileName),ex);
         }
     }
-
 }

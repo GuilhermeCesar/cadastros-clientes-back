@@ -15,6 +15,8 @@ public class CustomerDto implements Serializable {
     private Integer dependents;
     private String salary;
     private MultipartFile image;
+    private String telephone;
+    private String email;
 
     public CustomerDto(String fullName, String socialId, Integer age, String gener) {
         this.fullName = fullName;
@@ -96,6 +98,22 @@ public class CustomerDto implements Serializable {
 
     public void setImage(MultipartFile image) {
         this.image = image;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

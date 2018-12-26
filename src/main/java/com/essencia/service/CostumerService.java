@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service
@@ -43,8 +42,9 @@ public class CostumerService {
 		customer.setCivilStatus(CivilStatus.valueOf(customerDto.getCivilStatus().toUpperCase()));
 		customer.setDependents(customerDto.getDependents());
 		customer.setState(customerDto.getState());
-		customer.setSalary(new BigDecimal(customerDto.getSalary()));
 		customer.setGener(customerDto.getGener().charAt(0));
+		customer.setEmail(customerDto.getEmail());
+		customer.setTelephone(customer.getTelephone());
 
 		if(multipartFileOptional.isPresent()){
 			image = this.fileStorageService.storeFile(multipartFileOptional.get());
@@ -55,5 +55,4 @@ public class CostumerService {
 
 		return customer;
 	}
-
 }

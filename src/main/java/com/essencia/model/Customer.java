@@ -20,6 +20,7 @@ public class Customer {
 	private Integer dependents;
 	private BigDecimal salary;
 	private String telephone;
+	private String email;
 
 	@Enumerated(EnumType.ORDINAL)
 	private CivilStatus civilStatus;
@@ -118,5 +119,13 @@ public class Customer {
 
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }
