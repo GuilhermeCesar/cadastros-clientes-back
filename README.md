@@ -16,9 +16,12 @@
 
 
 
-Para rodar o projeto
+#Para rodar o projeto
 Você deve ter  mavem instalado na sua máquina
 - spring-boot:run
+- a aplicaçao roda na porta 8080, para desativar no linux 
+kill $(lsof -t -i:8080)
+
     
 
 

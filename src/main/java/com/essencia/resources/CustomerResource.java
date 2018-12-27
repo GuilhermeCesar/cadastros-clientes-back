@@ -8,6 +8,7 @@ import com.essencia.service.FileStorageService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -92,5 +93,19 @@ public class CustomerResource {
                         "filename\"".concat(resource.getFilename()).concat("\""))
                 .body(resource);
 
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteCustomer(@PathVariable("id")Long customerId){
+        try {
+            this.costumerService.deleteCustomer(customerId);
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (EmptyResultDataAccessException ex){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }catch (Exception ex){
+            ex.printStackTrace();
+            return new ResponseEntity(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

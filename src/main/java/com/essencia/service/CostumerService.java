@@ -44,7 +44,7 @@ public class CostumerService {
 		customer.setState(customerDto.getState());
 		customer.setGener(customerDto.getGener().charAt(0));
 		customer.setEmail(customerDto.getEmail());
-		customer.setTelephone(customer.getTelephone());
+		customer.setTelephone(customerDto.getTelephone());
 
 		if(multipartFileOptional.isPresent()){
 			image = this.fileStorageService.storeFile(multipartFileOptional.get());
@@ -54,5 +54,9 @@ public class CostumerService {
 		this.customerRepository.save(customer);
 
 		return customer;
+	}
+
+	public void deleteCustomer(Long customer){
+   		this.customerRepository.deleteById(customer);
 	}
 }
