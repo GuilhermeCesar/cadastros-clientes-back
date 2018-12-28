@@ -17,6 +17,7 @@ public class CustomerDto implements Serializable {
     private MultipartFile image;
     private String telephone;
     private String email;
+    private Long id;
 
     public CustomerDto(String fullName, String socialId, Integer age, String gener) {
         this.fullName = fullName;
@@ -114,6 +115,14 @@ public class CustomerDto implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override

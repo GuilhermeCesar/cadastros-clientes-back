@@ -1,7 +1,6 @@
 package com.essencia.resources;
 
 import com.essencia.dto.CustomerDto;
-import com.essencia.repository.CustomerRepository;
 import com.essencia.service.CostumerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,6 +27,8 @@ public class FakeDataResource {
         customerDto.setSocialId("08700209945");
         customerDto.setState("Santa Catarina");
         customerDto.setFullName("Guilherme César Medeiros");
+        customerDto.setEmail("guilherme@guilherme.me");
+        customerDto.setTelephone("(48) 996326879");
 
         this.customerService.createCustomer(customerDto);
 
@@ -40,6 +41,8 @@ public class FakeDataResource {
         customerDto.setSocialId("087001");
         customerDto.setState("Santa Catarina");
         customerDto.setFullName("Bruno");
+        customerDto.setEmail("bruno@teste.com.br");
+        customerDto.setTelephone("(48) 00000-0000");
 
         this.customerService.createCustomer(customerDto);
 

@@ -8,5 +8,6 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableAutoConfiguration
 @ComponentScan
 @EntityScan(basePackageClasses = Customer.class)
-public class ServiceConfig {
+public class ServiceConfig{
+
 }
